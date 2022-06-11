@@ -1,4 +1,5 @@
 import { printInvalid } from "../cli/messages.mjs";
+import { getList } from "./navigation/list.mjs";
 import { getUpDir } from "./navigation/up.mjs";
 
 const commandProcessor = async (data, currentDir) => {
@@ -7,6 +8,10 @@ const commandProcessor = async (data, currentDir) => {
 
     case 'up':
       currentDir = getUpDir(currentDir);
+      break;
+
+    case 'ls':
+      await getList(currentDir);
       break;
 
 
