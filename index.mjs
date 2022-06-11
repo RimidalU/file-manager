@@ -2,27 +2,25 @@ import process, { argv } from 'process';
 import { createInterface } from 'readline';
 import { printGreetings, printFarewell, printPath } from './src/cli/messages.mjs';
 import os from 'os';
+import { commandProcessor } from './src/commandProcessor/commandProcessor.mjs';
 
 let currentDir = os.homedir();
+
 const readLine = createInterface({ input: process.stdin });
 
 printGreetings(argv);
 printPath(currentDir);
 
 function exit() {
-    printFarewell()
-    readLine.close()
+    printFarewell();
+    readLine.close();
 };
 
 readLine
     .on('line', async (data) => {
-        if (data === '.exit' || data === '.Exit') {
-            exit()
-        }
-        else {
-            printPath(currentDir)
-            // console.log(`${data}`)
-        }
+        const command = data.trim().split(' ');
+        command[0] == '.exit' ? exit() : currentDir = await commandProcessor(data, currentDir);
+        printPath(currentDir);
     })
 
     .on('SIGINT', () => { exit() })
