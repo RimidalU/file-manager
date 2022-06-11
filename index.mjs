@@ -1,6 +1,6 @@
 import process, { argv } from 'process';
 import { createInterface } from 'readline';
-import { printGreetings, printFarewell, printPath } from './src/messages.mjs';
+import { printGreetings, printFarewell, printPath } from './src/cli/messages.mjs';
 import os from 'os';
 
 let currentDir = os.homedir();
