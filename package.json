@@ -1,0 +1,21 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "node file-manager",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RimidalU/file-manager.git"
+  },
+  "author": "RimidalU",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RimidalU/file-manager/issues"
+  },
+  "homepage": "https://github.com/RimidalU/file-manager#readme"
+}
