@@ -3,12 +3,15 @@ import { createFile } from "./files/add.mjs";
 import { getHash } from "./files/hash.mjs";
 import { readFile } from "./files/read.mjs";
 import { removeFile } from "./files/remove.mjs";
+import { renameFile } from "./files/rename.mjs";
 import { ChangeDirectory } from "./navigation/cd.mjs";
 import { getList } from "./navigation/list.mjs";
 import { getUpDir } from "./navigation/up.mjs";
+import { defaultColorText, errorColorText } from '../cli/constants.mjs';
 
 const commandProcessor = async (data, currentDir) => {
   const [command, ...args] = data.split(' ');
+
   switch (command) {
 
     case 'up':
@@ -44,6 +47,17 @@ const commandProcessor = async (data, currentDir) => {
       getHash(currentDir, hashFileName);
       break;
 
+    case 'rn':
+      if (args.length < 2) {
+        console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
+        printInvalid();
+        break
+      } else {
+        const currentFile = args[0].trim();
+        const newFile = args[1].trim();
+        renameFile(currentDir, currentFile, newFile);
+      }
+      break;
 
     default:
       printInvalid();

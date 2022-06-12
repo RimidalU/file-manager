@@ -9,3 +9,16 @@ export const checkNodeAccess = async (node) => {
         () => false
     }
 };
+
+// export const checkNodeAccess = async (node) => {
+//     let isAcccess = false
+//     console.log(node);
+//     access(node, constants.F_OK, function (error) {
+//         if (error) {
+//             isAcccess =  false;
+//         } else {
+//             isAcccess =  true;
+//         }
+//     });
+//     return isAcccess
+// };
