@@ -9,6 +9,7 @@ import { getList } from "./navigation/list.mjs";
 import { getUpDir } from "./navigation/up.mjs";
 import { defaultColorText, errorColorText } from '../cli/constants.mjs';
 import { copyFile } from "./files/copyFile.mjs";
+import { cpus, EOL, architecture, homedir, username } from './os.mjs'
 
 const commandProcessor = async (data, currentDir) => {
   const [command, ...args] = data.split(' ');
@@ -66,26 +67,55 @@ const commandProcessor = async (data, currentDir) => {
         printInvalid();
         break
       } else {
-      const currentFile = args[0].trim();
-      const newFolder = args[1].trim();
-      copyFile(currentDir, currentFile, newFolder);
+        const currentFile = args[0].trim();
+        const newFolder = args[1].trim();
+        copyFile(currentDir, currentFile, newFolder);
       }
       break;
 
-      case 'mv':
-        if (args.length < 2) {
-          console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
-          printInvalid();
-          break
-        } else {
-          const currentFile = args[0].trim();
-          const newFolder = args[1].trim();
-          await copyFile(currentDir, currentFile, newFolder);
-          await removeFile(currentDir, currentFile);
-        }
-        break;
+    case 'mv':
+      if (args.length < 2) {
+        console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
+        printInvalid();
+        break
+      } else {
+        const currentFile = args[0].trim();
+        const newFolder = args[1].trim();
+        await copyFile(currentDir, currentFile, newFolder);
+        await removeFile(currentDir, currentFile);
+      }
+      break;
 
-  
+    case 'os':
+      const [arg] = args;
+      switch (arg) {
+        case '--EOL':
+          EOL()
+          break;
+
+        case '--cpus':
+          cpus();
+          break;
+
+        case '--homedir':
+          homedir();
+          break;
+
+        case '--username':
+          username();
+          break;
+
+        case '--architecture':
+          architecture();
+          break;
+
+        default:
+          printInvalid();
+          break;
+      }
+      break;
+
+
     default:
       printInvalid();
       break;
