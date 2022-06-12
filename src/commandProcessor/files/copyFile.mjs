@@ -13,9 +13,6 @@ export const copyFile = async (currentDir, currentFile, newFolder) => {
     const filePath = path.resolve(__dirname, currentDir, currentFile);
     const newPath = path.resolve(__dirname, currentDir, newFolder);
 
-    console.log(filePath);
-
-    console.log(newPath);
     try {
         await fs.access(filePath, constants.R_OK | constants.F_OK);
         await fs.access(newPath, constants.R_OK | constants.F_OK);

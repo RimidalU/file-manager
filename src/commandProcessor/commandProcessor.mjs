@@ -61,10 +61,29 @@ const commandProcessor = async (data, currentDir) => {
       break;
 
     case 'cp':
+      if (args.length < 2) {
+        console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
+        printInvalid();
+        break
+      } else {
       const currentFile = args[0].trim();
       const newFolder = args[1].trim();
       copyFile(currentDir, currentFile, newFolder);
+      }
       break;
+
+      case 'mv':
+        if (args.length < 2) {
+          console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
+          printInvalid();
+          break
+        } else {
+          const currentFile = args[0].trim();
+          const newFolder = args[1].trim();
+          await copyFile(currentDir, currentFile, newFolder);
+          await removeFile(currentDir, currentFile);
+        }
+        break;
 
   
     default:
