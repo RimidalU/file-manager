@@ -10,6 +10,7 @@ import { getUpDir } from "./navigation/up.mjs";
 import { defaultColorText, errorColorText } from '../cli/constants.mjs';
 import { copyFile } from "./files/copyFile.mjs";
 import { cpus, EOL, architecture, homedir, username } from './os.mjs'
+import { compressFile } from "./zip/compressFile.mjs";
 
 const commandProcessor = async (data, currentDir) => {
   const [command, ...args] = data.split(' ');
@@ -83,6 +84,18 @@ const commandProcessor = async (data, currentDir) => {
         const newFolder = args[1].trim();
         await copyFile(currentDir, currentFile, newFolder);
         await removeFile(currentDir, currentFile);
+      }
+      break;
+
+    case 'compress':
+      if (args.length < 2) {
+        console.log(`${errorColorText}Expected 2 arguments${defaultColorText}`);
+        printInvalid();
+        break
+      } else {
+        const currentFile = args[0].trim();
+        const newFolder = args[1].trim();
+        compressFile(currentDir, currentFile, newFolder);
       }
       break;
 
