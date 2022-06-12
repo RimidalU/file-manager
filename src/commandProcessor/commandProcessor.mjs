@@ -1,5 +1,6 @@
 import { printInvalid } from "../cli/messages.mjs";
 import { createFile } from "./files/add.mjs";
+import { removeFile } from "./files/remove.mjs";
 import { ChangeDirectory } from "./navigation/cd.mjs";
 import { getList } from "./navigation/list.mjs";
 import { getUpDir } from "./navigation/up.mjs";
@@ -9,7 +10,7 @@ const commandProcessor = async (data, currentDir) => {
   switch (command) {
 
     case 'up':
-      currentDir =  getUpDir(currentDir);
+      currentDir = getUpDir(currentDir);
       break;
 
     case 'ls':
@@ -18,12 +19,17 @@ const commandProcessor = async (data, currentDir) => {
 
     case 'cd':
       const path = args[0].trim();
-      currentDir = ChangeDirectory(currentDir, path);
+      currentDir = await ChangeDirectory(currentDir, path);
       break;
 
     case 'add':
       const fileName = args[0].trim();
-      currentDir = await createFile(currentDir, fileName);
+      await createFile(currentDir, fileName);
+      break;
+
+    case 'rm':
+      const fileNameRemove = args[0].trim();
+      await removeFile(currentDir, fileNameRemove);
       break;
 
 
