@@ -1,5 +1,6 @@
 import { printInvalid } from "../cli/messages.mjs";
 import { createFile } from "./files/add.mjs";
+import { readFile } from "./files/read.mjs";
 import { removeFile } from "./files/remove.mjs";
 import { ChangeDirectory } from "./navigation/cd.mjs";
 import { getList } from "./navigation/list.mjs";
@@ -30,6 +31,11 @@ const commandProcessor = async (data, currentDir) => {
     case 'rm':
       const fileNameRemove = args[0].trim();
       await removeFile(currentDir, fileNameRemove);
+      break;
+
+    case 'cat':
+      const freadFileName = args[0].trim();
+      await readFile(currentDir, freadFileName);
       break;
 
 

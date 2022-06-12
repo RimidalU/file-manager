@@ -20,6 +20,10 @@ export const createFile = (currentDir, fileName) => {
     printPath(currentDir);
   }
   );
-  ws.end(console.log(`File ${NameColorText}${fileName}${defaultColorText} created!`));
+  ws.on('finish', () => {
+    console.log(`File ${NameColorText}${fileName}${defaultColorText} created!`);
+    printPath(currentDir)
+  });
+  ws.end()
   return currentDir
 };
