@@ -8,6 +8,7 @@ import { ChangeDirectory } from "./navigation/cd.mjs";
 import { getList } from "./navigation/list.mjs";
 import { getUpDir } from "./navigation/up.mjs";
 import { defaultColorText, errorColorText } from '../cli/constants.mjs';
+import { copyFile } from "./files/copyFile.mjs";
 
 const commandProcessor = async (data, currentDir) => {
   const [command, ...args] = data.split(' ');
@@ -59,6 +60,13 @@ const commandProcessor = async (data, currentDir) => {
       }
       break;
 
+    case 'cp':
+      const currentFile = args[0].trim();
+      const newFolder = args[1].trim();
+      copyFile(currentDir, currentFile, newFolder);
+      break;
+
+  
     default:
       printInvalid();
       break;
